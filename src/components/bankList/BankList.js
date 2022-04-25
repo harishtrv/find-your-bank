@@ -48,7 +48,7 @@ class BankList extends React.Component {
           <SearchComponent resetCurrentPage={() => this.setState({ currentPageNumber: 1 })} />
         </div>
         <br />
-        <TableComponent list={this.props.currentPageBanks} loading={false} doubleClickHandler={this.gotoBankDetails} />
+        <TableComponent list={this.props.currentPageBanks} loading={this.state.loading} doubleClickHandler={this.gotoBankDetails} />
         <div style={{ float: 'right', display: 'flex', flexDirection: 'row', margin: '15px' }}>
           <div onClick={()=>this.rowsInputRef.current.focus()}>rows per page <AiFillEdit />:
             <input className={styles.rowsInput} type='number' value={this.state.rowsPerPage}
