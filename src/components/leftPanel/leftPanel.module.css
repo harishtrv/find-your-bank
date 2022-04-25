@@ -1,0 +1,20 @@
+.leftLayout{
+  border:1px solid black;
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  float: left;
+  width: 120px;
+  height: 90vh;
+  z-index: 1001;
+  background-color: aliceblue;
+  padding: 5px;
+  margin: 5px;
+}
+a{
+  color: black;
+  text-decoration: none;
+  margin: 8px;
+  margin-top: 20px;
+  font-weight: 600;
+}
