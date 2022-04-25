@@ -1,4 +1,4 @@
-import BankAPI from '../api/BankAPI';
+import BankAPI from '../utils/api/BankAPI';
 
 export const setAllBanks = (city) => async dispatch => {
   let bankList = [];

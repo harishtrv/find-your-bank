@@ -32,7 +32,7 @@ class Pagination extends React.Component {
   render() {
     if (this.props.paginationStatus && this.props.totalRecords !== 0) {
       const startIndex = (this.props.currentPage - 1) * this.props.recordsPerPage;
-      return <div>
+      return <div className={styles.pagination}>
         {this.prevButton()}
         {this.minusFive()}
         {startIndex + 1}-{this.props.currentPage * this.props.recordsPerPage} of {this.props.totalRecords}

@@ -15,10 +15,16 @@ th {
 }
 
 .topBar{
+  position: relative;
+  right: 20px;
   float: right;
   display: flex;
   flex-direction: row;
   margin:8px;
+}
+.banksTable{
+  /* position: relative;
+  top: 50px; */
 }
 .rowsInput{
   border: none;

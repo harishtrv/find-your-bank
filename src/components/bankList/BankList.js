@@ -38,28 +38,35 @@ class BankList extends React.Component {
       history.push(`/bank-details/${e.target.parentNode.id}`);
     }
   }
+  rowNumberEditor = () => {
+    if (this.state.loading || this.props.currentPageBanks.length===0) return null;
+
+    return <div onClick={() => this.rowsInputRef.current.focus()}>rows per page <AiFillEdit />:
+      <input className={styles.rowsInput} type='number' value={this.state.rowsPerPage}
+        ref={this.rowsInputRef}
+        onChange={(e) => {
+          this.setState({ rowsPerPage: e.target.value });
+          if (e.target.value) {
+            this.props.setCurrentPageBanks(this.props.queriedBanks.slice(0, e.target.value))
+          }
+        }} />
+    </div>
+  }
   render() {
     return (
       <div>
         <h3 style={{ margin: '5px' }}>All Banks</h3>
-        <div className={styles.topBar}>
+        <div className={styles.topBar} style={this.state.loading?{position:'fixed'}:{}}>
           <DropDown label="Select City" onChangeHandler={e => this.cityChangeHandler(e.target.value)}
             data={this.cityOptions} />
           <SearchComponent resetCurrentPage={() => this.setState({ currentPageNumber: 1 })} />
         </div>
         <br />
-        <TableComponent list={this.props.currentPageBanks} loading={this.state.loading} doubleClickHandler={this.gotoBankDetails} />
+        <div className={styles.banksTable}>
+          <TableComponent list={this.props.currentPageBanks} loading={this.state.loading} onClickHandler={this.gotoBankDetails} />
+        </div>
         <div className={styles.rowNumberEditor}>
-          <div onClick={() => this.rowsInputRef.current.focus()}>rows per page <AiFillEdit />:
-            <input className={styles.rowsInput} type='number' value={this.state.rowsPerPage}
-              ref={this.rowsInputRef}
-              onChange={(e) => {
-                this.setState({ rowsPerPage: e.target.value });
-                if(e.target.value){
-                  this.props.setCurrentPageBanks(this.props.queriedBanks.slice(0, e.target.value))
-                }
-              }} />
-          </div>
+          {this.rowNumberEditor()}
           <Pagination paginationStatus={!this.state.loading}
             currentPage={this.state.currentPageNumber}
             totalRecords={this.props.queriedBanks.length}
@@ -67,7 +74,7 @@ class BankList extends React.Component {
             setCurrentPage={this.setCurrentPage}
           />
         </div>
-      </div>
+      </div >
     );
   }
 }

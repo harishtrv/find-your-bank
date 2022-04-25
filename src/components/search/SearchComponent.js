@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Debounce from '../../utils/Debounce';
+import { Debounce } from '../../utils/helper';
 import DropDown from '../dropdown/DropDown';
 import { setCurrentPageBanks, setQueriedBanks } from '../../actions';
 import styles from './search.module.css';
@@ -15,13 +15,17 @@ class SearchComponent extends React.Component {
     this.searchInput = React.createRef();
   }
   search = (value) => {
-    if(value === '') return;
+    if (value === ''){
+      this.props.setQueriedBanks(this.props.allBankList);
+      this.props.setCurrentPageBanks(this.props.allBankList.slice(0, 10));
+      return;
+    } 
     let result = [];
     this.props.resetCurrentPage();
     const upperCaseValue = value.toUpperCase();
     switch (this.state.category) {
       case 'BANK':
-        result = this.props.allBankList.filter(bank => bank.bank_name === upperCaseValue);
+        result = this.props.allBankList.filter(bank => bank.bank_name.includes(upperCaseValue) );
         break;
       case 'IFSC':
         result = this.props.allBankList.filter(bank => bank.ifsc === upperCaseValue);
@@ -36,7 +40,7 @@ class SearchComponent extends React.Component {
         result = this.props.allBankList.filter(bank => bank.bank_id === Number(value));
         break;
       default:
-        result=[];
+        result = [];
     }
     this.props.setQueriedBanks(result);
     this.props.setCurrentPageBanks(result.slice(0, 10));

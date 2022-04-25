@@ -1,4 +1,4 @@
-const Debounce = (fun, delay) => {
+export const Debounce = (fun, delay) => {
   let timer;
   return (...args) => {
     const context = this;
@@ -7,4 +7,3 @@ const Debounce = (fun, delay) => {
   }
 };
 
-export default Debounce;
