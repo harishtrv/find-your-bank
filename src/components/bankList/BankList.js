@@ -39,7 +39,7 @@ class BankList extends React.Component {
     }
   }
   rowNumberEditor = () => {
-    if (this.state.loading || this.props.currentPageBanks.length===0) return null;
+    if (this.state.loading || this.props.currentPageBanks.length === 0) return null;
 
     return <div onClick={() => this.rowsInputRef.current.focus()}>rows per page <AiFillEdit />:
       <input className={styles.rowsInput} type='number' value={this.state.rowsPerPage}
@@ -56,7 +56,7 @@ class BankList extends React.Component {
     return (
       <div>
         <h3 style={{ margin: '5px' }}>All Banks</h3>
-        <div className={styles.topBar} style={this.state.loading?{position:'fixed'}:{}}>
+        <div className={styles.topBar} style={this.state.loading || this.props.currentPageBanks.length === 0 ? { position: 'fixed' } : {}}>
           <DropDown label="Select City" onChangeHandler={e => this.cityChangeHandler(e.target.value)}
             data={this.cityOptions} />
           <SearchComponent resetCurrentPage={() => this.setState({ currentPageNumber: 1 })} />
