@@ -12,7 +12,7 @@ class Pagination extends React.Component {
       </button>;
   }
   nextButton() {
-    if (this.props.currentPage === this.props.totalPages) {
+    if (this.props.recordsPerPage === 0 || this.props.currentPage === (this.props.totalRecords / this.props.recordsPerPage)) {
       return <button className={styles.disabledButton} disabled>Next</button>;
     }
     return <button className={styles.navButton} onClick={() => this.props.setCurrentPage(this.props.currentPage + 1)}>Next</button>;
@@ -24,18 +24,18 @@ class Pagination extends React.Component {
     return <button className={styles.navButton} onClick={() => this.props.setCurrentPage(this.props.currentPage - 5)}>-5</button>;
   }
   plusFive() {
-    if (this.props.currentPage + 5 > this.props.totalPages) {
+    if (this.props.recordsPerPage === 0 || this.props.currentPage + 5 > (this.props.totalRecords / this.props.recordsPerPage)) {
       return <button className={styles.disabledButton} disabled>+5</button>;
     }
     return <button className={styles.navButton} onClick={() => this.props.setCurrentPage(this.props.currentPage + 5)}>+5</button>;
   }
   render() {
-    if (this.props.paginationStatus) {
+    if (this.props.paginationStatus && this.props.totalRecords !== 0) {
       const startIndex = (this.props.currentPage - 1) * this.props.recordsPerPage;
       return <div>
         {this.prevButton()}
         {this.minusFive()}
-        {startIndex + 1}-{this.props.currentPage * this.props.recordsPerPage } of {this.props.totalRecords}
+        {startIndex + 1}-{this.props.currentPage * this.props.recordsPerPage} of {this.props.totalRecords}
         {this.plusFive()}
         {this.nextButton()}
       </div>

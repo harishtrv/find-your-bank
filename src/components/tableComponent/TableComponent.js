@@ -1,5 +1,6 @@
 import React from 'react';
 import BankList from '../bankList/BankList';
+import Loader from "react-loader-spinner";
 
 class TableComponent extends React.Component {
   renderData = () => {
@@ -16,15 +17,24 @@ class TableComponent extends React.Component {
   };
   render() {
     if (this.props.loading) {
-      return <h3>...loading</h3>;
+      return (
+          <div styele={{margin: '20px'}}>
+            <h4>Loading...</h4>
+            <Loader
+              type="Rings"
+              color="rgb(0, 199, 0)"
+              height={200}
+              width={200}
+            />
+          </div>);
     }
     else if (this.props.list.length === 0) {
-      return <h3>No Records Found</h3>;
+       return <h3>No Records Found</h3>;
     }
     return (
       <table>
         <tbody onDoubleClick={this.props.doubleClickHandler}>
-          <tr>
+          <tr key='columnNames'>
             <th>Bank Name</th>
             <th>Branch</th>
             <th>IFSC</th>

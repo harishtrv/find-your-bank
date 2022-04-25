@@ -49,20 +49,21 @@ class BankList extends React.Component {
         </div>
         <br />
         <TableComponent list={this.props.currentPageBanks} loading={this.state.loading} doubleClickHandler={this.gotoBankDetails} />
-        <div style={{ float: 'right', display: 'flex', flexDirection: 'row', margin: '15px' }}>
-          <div onClick={()=>this.rowsInputRef.current.focus()}>rows per page <AiFillEdit />:
+        <div className={styles.rowNumberEditor}>
+          <div onClick={() => this.rowsInputRef.current.focus()}>rows per page <AiFillEdit />:
             <input className={styles.rowsInput} type='number' value={this.state.rowsPerPage}
               ref={this.rowsInputRef}
               onChange={(e) => {
                 this.setState({ rowsPerPage: e.target.value });
-                this.props.setCurrentPageBanks(this.props.queriedBanks.slice(0, e.target.value))
+                if(e.target.value){
+                  this.props.setCurrentPageBanks(this.props.queriedBanks.slice(0, e.target.value))
+                }
               }} />
           </div>
           <Pagination paginationStatus={!this.state.loading}
             currentPage={this.state.currentPageNumber}
             totalRecords={this.props.queriedBanks.length}
-            recordsPerPage={this.state.rowsPerPage}
-            totalPages={Math.ceil(this.props.queriedBanks.length / this.state.rowsPerPage)}
+            recordsPerPage={this.state.rowsPerPage ? this.state.rowsPerPage : 10}
             setCurrentPage={this.setCurrentPage}
           />
         </div>

@@ -7,8 +7,10 @@ export const setAllBanks = (city) => async dispatch => {
   }
   else {
     const response = await BankAPI.get('/banks', { params: { city } });
-    bankList = response.data;
-    localStorage.setItem(city, JSON.stringify(bankList))
+    if (response && response.status === 200) {
+      bankList = response.data;
+      localStorage.setItem(city, JSON.stringify(bankList))
+    }
   }
   dispatch({ type: 'UPDATE_ALL', payload: bankList });
   dispatch({ type: 'UPDATE_QUERY_RESULT', payload: bankList });

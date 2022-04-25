@@ -1,5 +1,5 @@
 .leftLayout{
-  border:1px solid black;
+  border:1px solid #cccccc;
   display: flex;
   flex-direction: column;
   position: fixed;

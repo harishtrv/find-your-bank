@@ -36,3 +36,9 @@ input[type=number] {
   appearance: textfield;
   margin: 0; 
 }
+.rowNumberEditor{
+  float: right;
+  display: flex;
+  flex-direction: row;
+  margin: 15px;
+}
