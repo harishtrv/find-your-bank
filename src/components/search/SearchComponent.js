@@ -15,6 +15,7 @@ class SearchComponent extends React.Component {
     this.searchInput = React.createRef();
   }
   search = (value) => {
+    if(value === '') return;
     let result = [];
     this.props.resetCurrentPage();
     const upperCaseValue = value.toUpperCase();
