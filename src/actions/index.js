@@ -2,6 +2,15 @@ import BankAPI from '../api/BankAPI';
 
 export const setAllBanks = (city) => async dispatch => {
   let bankList = [];
+  var now = new Date().getTime();
+  let expirationTimeInMS = 60 * 60 * 1000; //1 hour
+  var initialTime = localStorage.getItem('initialTime');
+  if (initialTime == null) {
+    localStorage.setItem('initialTime', now)
+  } else if (now - initialTime > expirationTimeInMS) {
+    localStorage.clear()
+    localStorage.setItem('initialTime', now);
+  }
   if (localStorage.getItem(city)) {
     bankList = JSON.parse(localStorage.getItem(city));
   }
