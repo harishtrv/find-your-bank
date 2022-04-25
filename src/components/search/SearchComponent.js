@@ -34,6 +34,8 @@ class SearchComponent extends React.Component {
       case 'ID':
         result = this.props.allBankList.filter(bank => bank.bank_id === Number(value));
         break;
+      default:
+        result=[];
     }
     this.props.setQueriedBanks(result);
     this.props.setCurrentPageBanks(result.slice(0, 10));
